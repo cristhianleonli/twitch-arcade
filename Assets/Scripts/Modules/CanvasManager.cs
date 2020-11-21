@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum PanelType
 {
@@ -28,6 +29,9 @@ class PanelData
 public class CanvasManager : MonoBehaviour
 {
     private List<PanelData> panels = new List<PanelData>();
+
+    // FIXME: Replace this with a panel with users
+    public Text playersText;
 
     void Start()
     {
@@ -64,5 +68,10 @@ public class CanvasManager : MonoBehaviour
     public void OnButtonClicked(PanelButton button)
     {
         SelectPanel(button.panelType);
+    }
+
+    public void SetPlayersTitle(string text)
+    {
+        playersText.text = text;
     }
 }

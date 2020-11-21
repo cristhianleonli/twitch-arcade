@@ -46,7 +46,7 @@ public class ChatManager : MonoBehaviour
             });
     }
 
-    void ShowCommand​(TwitchChatCommand chatCommand)
+    void ShowCommand(TwitchChatCommand chatCommand)
     {
         ChatCommand command = new ChatCommand(chatCommand.Command, chatCommand.Parameters);
         ChatUser user = new ChatUser(chatCommand.User.DisplayName);
@@ -75,21 +75,29 @@ public class ChatManager : MonoBehaviour
         }
     }
 
-    void ShowReward​(TwitchChatReward chatReward)
+    void ShowReward(TwitchChatReward chatReward)
     {
     }
 
-    void ShowMessage​(TwitchChatMessage chatMessage)
+    void ShowMessage(TwitchChatMessage chatMessage)
     {
     }
 
     private bool IsJoinCommand(ChatCommand command)
     {
-        return command.Command == "!join" && command.Parameters.Length == 0;
+        // TODO: Take the command alias from Player preferences
+        if (command.Command != "!arcade") return false;
+        if (command.Parameters.Length != 1) return false;
+
+        return command.Parameters[0] == "join";
     }
 
     private bool IsLeaveCommand(ChatCommand command)
     {
-        return command.Command == "!leave" && command.Parameters.Length == 0;
+        // TODO: Take the command alias from Player preferences
+        if (command.Command != "!arcade") return false;
+        if (command.Parameters.Length != 1) return false;
+
+        return command.Parameters[0] == "leave";
     }
 }

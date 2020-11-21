@@ -1,34 +1,33 @@
 ﻿using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class DataManager
 {
-    public static DataManager Instance { get; private set; }
+    private static DataManager instance;
 
-    private void Awake()
+    public static DataManager Instance
     {
-        if (Instance == null)
+        get
         {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
+            if (instance == null)
+            {
+                instance = new DataManager();
+            }
+
+            return instance;
         }
     }
 
     public string GetUsername()
     {
-        // TODO: CHeck for this data into the database
-        return "";
-    }
-
-    public string GetToken()
-    {
         return "";
     }
 
     public string GetChannelName()
+    {
+        return "";
+    }
+
+    public string GetToken()
     {
         return "";
     }

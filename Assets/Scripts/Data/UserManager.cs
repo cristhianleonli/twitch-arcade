@@ -1,37 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class UserManager: MonoBehaviour
+public class UserManager
 {
-    public static UserManager Instance { get; private set; }
-    public List<ChatUser> OnlineUsers { get; private set; }
+    private readonly Dictionary<string, ChatUser> users = new Dictionary<string, ChatUser>();
+    public List<ChatUser> OnlineUsers => users.Values.ToList();
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    private static UserManager instance;
 
-    private void Start()
+    public static UserManager Instance
     {
-        OnlineUsers = new List<ChatUser>();
+        get
+        {
+            if (instance == null)
+            {
+                instance = new UserManager();
+            }
+
+            return instance;
+        }
     }
 
     public void AddUser(ChatUser user)
     {
-        OnlineUsers.Add(user);
+        string username = user.Nickname.ToLower();
+        if (HasUser(username)) return;
+        users.Add(username, user);
     }
 
     public void RemoveUser(ChatUser user)
     {
-        OnlineUsers.Remove(user);
+        string username = user.Nickname.ToLower();
+        if (HasUser(username) == false) return;
+        users.Remove(username);
+    }
+
+    public bool HasUser(string username)
+    {
+        username = username.ToLower();
+        return users.ContainsKey(username);
+    }
+
+    public ChatUser GetUser(string username)
+    {
+        if (!HasUser(username)) return null;
+
+        username = username.ToLower();
+        return users[username];
     }
 }
