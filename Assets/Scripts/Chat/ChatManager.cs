@@ -55,8 +55,6 @@ public class ChatManager : MonoBehaviour
 
         if (IsJoinCommand(command))
         {
-            // TODO: check if this user has ever been persisted
-            // if not, save the user as a new entry
             userManager.AddUser(user);
             adapter.OnUserJoined(user);
             return;
@@ -86,7 +84,7 @@ public class ChatManager : MonoBehaviour
     private bool IsJoinCommand(ChatCommand command)
     {
         // TODO: Take the command alias from Player preferences
-        if (command.Command != "!arcade") return false;
+        if (command.Command != dataManager.GetCommandPrefix()) return false;
         if (command.Parameters.Length != 1) return false;
 
         return command.Parameters[0] == "join";
@@ -95,7 +93,7 @@ public class ChatManager : MonoBehaviour
     private bool IsLeaveCommand(ChatCommand command)
     {
         // TODO: Take the command alias from Player preferences
-        if (command.Command != "!arcade") return false;
+        if (command.Command != dataManager.GetCommandPrefix()) return false;
         if (command.Parameters.Length != 1) return false;
 
         return command.Parameters[0] == "leave";

@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class UserManager
 {
-    private readonly Dictionary<string, ChatUser> users = new Dictionary<string, ChatUser>();
-    public List<ChatUser> OnlineUsers => users.Values.ToList();
 
     private static UserManager instance;
+    private readonly Dictionary<string, ChatUser> users = new Dictionary<string, ChatUser>();
+    private readonly DataManager dataManager = DataManager.Instance;
+
+    public List<ChatUser> OnlineUsers => users.Values.ToList();
 
     public static UserManager Instance
     {
@@ -27,6 +27,12 @@ public class UserManager
     {
         string username = user.Nickname.ToLower();
         if (HasUser(username)) return;
+
+        if (dataManager.UserExists(username) == false)
+        {
+            dataManager.CreateUser(username);
+        }
+
         users.Add(username, user);
     }
 
