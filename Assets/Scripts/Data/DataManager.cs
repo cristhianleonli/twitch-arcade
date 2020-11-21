@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using TwitchChatConnect.Config;
 
 public class DataManager : MonoBehaviour
 {
-    [SerializeField] public TwitchConnectData connectData;
     public static DataManager Instance { get; private set; }
 
     private void Awake()
@@ -21,16 +19,17 @@ public class DataManager : MonoBehaviour
 
     public string GetUsername()
     {
-        return connectData.TwitchConnectConfig.Username;
+        // TODO: CHeck for this data into the database
+        return "";
     }
 
     public string GetToken()
     {
-        return connectData.TwitchConnectConfig.UserToken;
+        return "";
     }
 
     public string GetChannelName()
     {
-        return connectData.TwitchConnectConfig.ChannelName;
+        return "";
     }
 }

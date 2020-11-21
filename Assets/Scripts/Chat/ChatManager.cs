@@ -77,12 +77,10 @@ public class ChatManager : MonoBehaviour
 
     void ShowReward​(TwitchChatReward chatReward)
     {
-
     }
 
     void ShowMessage​(TwitchChatMessage chatMessage)
     {
-
     }
 
     private bool IsJoinCommand(ChatCommand command)
