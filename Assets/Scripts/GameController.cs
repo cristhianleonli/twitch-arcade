@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour, IChatAdapter
 {
 
-    private CanvasManager canvasManager;
+    private CanvasManager _canvasManager;
 
     private void Awake()
     {
@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour, IChatAdapter
 
     private void Start()
     {
-        canvasManager = FindObjectOfType<CanvasManager>();
+        _canvasManager = FindObjectOfType<CanvasManager>();
     }
 
     #region Command adapter
@@ -31,21 +31,21 @@ public class GameController : MonoBehaviour, IChatAdapter
     public void OnUserJoined(ChatUser user)
     {
         // FIXME: Replace this logic with players text or something
-        string text = "";
-        foreach (ChatUser chatUser in UserManager.Instance.OnlineUsers) {
+        var text = "";
+        foreach (var chatUser in UserManager.Instance.OnlineUsers) {
             text += chatUser.Nickname + "\n";
         }
-        canvasManager.SetPlayersTitle(text);
+        _canvasManager.SetPlayersTitle(text);
     }
 
     public void OnUserLeft(ChatUser user)
     {
         // FIXME: Replace this logic with players text or something
-        string text = "";
-        foreach (ChatUser chatUser in UserManager.Instance.OnlineUsers) {
+        var text = "";
+        foreach (var chatUser in UserManager.Instance.OnlineUsers) {
             text += chatUser.Nickname + "\n";
         }
-        canvasManager.SetPlayersTitle(text);
+        _canvasManager.SetPlayersTitle(text);
     }
     #endregion
 }
