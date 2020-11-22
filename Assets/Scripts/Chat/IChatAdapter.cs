@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Data.Entities;
 
-public interface IChatAdapter
+namespace Chat
 {
-    void OnCommandReceived(ChatCommand command);
-    bool IsValidCommand(string command, string[] parameters);
-    void OnUserJoined(ChatUser user);
-    void OnUserLeft(ChatUser user);
+    public interface IChatAdapter
+    {
+        void OnCommandReceived(ChatCommand command);
+        bool IsValidCommand(string command, string[] parameters);
+        void OnUserJoined(ChatUser user);
+        void OnUserLeft(ChatUser user);
+    }
 }

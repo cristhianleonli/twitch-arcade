@@ -1,89 +1,72 @@
-﻿using UnityEngine;
+﻿using Chat;
+using Chat.Credentials;
+using Constants;
+using UnityEngine;
 
-public class DataManager
+namespace Data
 {
-    private static DataManager instance;
-
-    private readonly string usernameKey = "USERNAME";
-    private readonly string channelKey = "CHANNEL";
-    private readonly string tokenKey = "TOKEN";
-    private readonly string commandPrefixKey = "COMMAND_PREFIX";
-    private readonly string defaultPrefix = "!arcade";
-
-    private readonly ICredentials credentials = new DebugCredentials();
-
-    public static DataManager Instance
+    public class DataManager
     {
-        get
+        private static DataManager _instance;
+        private readonly ICredentials _credentials = new DebugCredentials();
+        public static DataManager Instance => _instance ?? (_instance = new DataManager());
+
+        #region credentials
+        public string GetUsername()
         {
-            if (instance == null)
-            {
-                instance = new DataManager();
-            }
-
-            return instance;
-        }
-    }
-
-    #region credentials
-    public string GetUsername()
-    {
-        return credentials.GetUsername();
-    }
-
-    public string GetChannelName()
-    {
-        return credentials.GetChannelName();
-    }
-
-    public string GetToken()
-    {
-        return credentials.GetToken();
-    }
-
-    public string GetCommandPrefix()
-    {
-        string prefix = PlayerPrefs.GetString(commandPrefixKey);
-        if (string.IsNullOrEmpty(prefix))
-        {
-            SetUsername(defaultPrefix);
-            return defaultPrefix;
+            return _credentials.GetUsername();
         }
 
-        return prefix;
-    }
+        public string GetChannelName()
+        {
+            return _credentials.GetChannelName();
+        }
 
-    public void SetUsername(string username)
-    {
-        PlayerPrefs.SetString(usernameKey, username);
-    }
+        public string GetToken()
+        {
+            return _credentials.GetToken();
+        }
 
-    public void SetChannelName(string channelName)
-    {
-        PlayerPrefs.SetString(channelKey, channelName);
-    }
+        public string GetCommandPrefix()
+        {
+            var prefix = PlayerPrefs.GetString(Strings.CommandPrefixKey);
+            if (!string.IsNullOrEmpty(prefix)) return prefix;
+            SetCommandPrefix(Strings.DefaultPrefix);
+            return Strings.DefaultPrefix;
+        }
 
-    public void SetToken(string token)
-    {
-        PlayerPrefs.SetString(tokenKey, token);
-    }
+        public void SetUsername(string username)
+        {
+            PlayerPrefs.SetString(Strings.UsernameKey, username);
+        }
 
-    public void SetCommandPrefix(string prefix)
-    {
-        PlayerPrefs.SetString(commandPrefixKey, prefix);
-    }
-    #endregion
+        public void SetChannelName(string channelName)
+        {
+            PlayerPrefs.SetString(Strings.ChannelKey, channelName);
+        }
 
-    #region database
-    public bool UserExists(string username)
-    {
-        // TODO: read from DB
-        return false;
-    }
+        public void SetToken(string token)
+        {
+            PlayerPrefs.SetString(Strings.TokenKey, token);
+        }
 
-    public void CreateUser(string username)
-    {
-        // TODO: write to DB
+        public void SetCommandPrefix(string prefix)
+        {
+            PlayerPrefs.SetString(Strings.CommandPrefixKey, prefix);
+        }
+        #endregion
+
+        #region database
+        public bool UserExists(string username)
+        {
+            // TODO: read from DB
+            return false;
+        }
+
+        public void CreateUser(string username)
+        {
+            // TODO: write to DB
+        }
+        #endregion
     }
-    #endregion
 }

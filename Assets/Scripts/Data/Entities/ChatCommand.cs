@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ChatCommand
+﻿namespace Data.Entities
 {
-    public string Command { get; }
-    public string[] Parameters { get; }
-
-    public ChatCommand(string command, string[] parameters)
+    public class ChatCommand
     {
-        Command = command.ToLower();
-        Parameters = parameters;
+        public string Command { get; }
+        public string[] Parameters { get; }
+
+        public ChatCommand(string command, string[] parameters)
+        {
+            Command = command.ToLower();
+            Parameters = parameters;
+        }
     }
 }

@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public enum PanelType
 {
-    GAME_LIST,
-    LEADERBOARD,
-    PLAYERS,
-    SETTINGS,
-    STATS
+    GameList,
+    Leaderboard,
+    Players,
+    Settings,
+    Stats
 }
 
-class PanelData
+internal class PanelData
 {
-    public PanelType panelType;
-    public GameObject panel;
+    public readonly PanelType panelType;
+    public readonly GameObject panel;
     public PanelButton button;
 
     public PanelData(PanelType panelType, GameObject panel, PanelButton button)
@@ -28,27 +28,27 @@ class PanelData
 
 public class CanvasManager : MonoBehaviour
 {
-    private List<PanelData> panels = new List<PanelData>();
+    private readonly List<PanelData> _panels = new List<PanelData>();
 
-    void Start()
+    private void Start()
     {
-        panels.Add(new PanelData(PanelType.GAME_LIST, FindObjectOfType<GameListPanel>().gameObject, null));
-        panels.Add(new PanelData(PanelType.LEADERBOARD, FindObjectOfType<LeaderboardPanel>().gameObject, null));
-        panels.Add(new PanelData(PanelType.PLAYERS, FindObjectOfType<PlayersPanel>().gameObject, null));
-        panels.Add(new PanelData(PanelType.SETTINGS, FindObjectOfType<SettingsPanel>().gameObject, null));
-        panels.Add(new PanelData(PanelType.STATS, FindObjectOfType<StatsPanel>().gameObject, null));
+        _panels.Add(new PanelData(PanelType.GameList, FindObjectOfType<GameListPanel>().gameObject, null));
+        _panels.Add(new PanelData(PanelType.Leaderboard, FindObjectOfType<LeaderboardPanel>().gameObject, null));
+        _panels.Add(new PanelData(PanelType.Players, FindObjectOfType<PlayersPanel>().gameObject, null));
+        _panels.Add(new PanelData(PanelType.Settings, FindObjectOfType<SettingsPanel>().gameObject, null));
+        _panels.Add(new PanelData(PanelType.Stats, FindObjectOfType<StatsPanel>().gameObject, null));
 
-        foreach (PanelButton button in FindObjectsOfType<PanelButton>())
+        foreach (var button in FindObjectsOfType<PanelButton>())
         {
-            panels.Find(item => item.panelType == button.panelType).button = button;
+            _panels.Find(item => item.panelType == button.panelType).button = button;
         }
 
-        SelectPanel(PanelType.GAME_LIST);
+        SelectPanel(PanelType.GameList);
     }
 
     private void SelectPanel(PanelType targetPanel)
     {
-        foreach (PanelData panel in panels)
+        foreach (var panel in _panels)
         {
             if(panel.panelType == targetPanel)
             {
@@ -69,6 +69,7 @@ public class CanvasManager : MonoBehaviour
 
     public void SetPlayersTitle(string text)
     {
+        // FIXME: Remove this function
         Debug.Log(text);
     }
 }

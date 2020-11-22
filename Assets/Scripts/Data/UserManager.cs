@@ -1,59 +1,50 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Data.Entities;
 
-public class UserManager
+namespace Data
 {
-
-    private static UserManager instance;
-    private readonly Dictionary<string, ChatUser> users = new Dictionary<string, ChatUser>();
-    private readonly DataManager dataManager = DataManager.Instance;
-
-    public List<ChatUser> OnlineUsers => users.Values.ToList();
-
-    public static UserManager Instance
+    public class UserManager
     {
-        get
+
+        private static UserManager _instance;
+        private readonly Dictionary<string, ChatUser> _users = new Dictionary<string, ChatUser>();
+        private readonly DataManager _dataManager = DataManager.Instance;
+
+        public List<ChatUser> OnlineUsers => _users.Values.ToList();
+        public static UserManager Instance => _instance ?? (_instance = new UserManager());
+
+        public void AddUser(ChatUser user)
         {
-            if (instance == null)
+            var username = user.Nickname.ToLower();
+            if (HasUser(username)) return;
+
+            if (_dataManager.UserExists(username) == false)
             {
-                instance = new UserManager();
+                _dataManager.CreateUser(username);
             }
 
-            return instance;
+            _users.Add(username, user);
         }
-    }
 
-    public void AddUser(ChatUser user)
-    {
-        string username = user.Nickname.ToLower();
-        if (HasUser(username)) return;
-
-        if (dataManager.UserExists(username) == false)
+        public void RemoveUser(ChatUser user)
         {
-            dataManager.CreateUser(username);
+            var username = user.Nickname.ToLower();
+            if (HasUser(username) == false) return;
+            _users.Remove(username);
         }
 
-        users.Add(username, user);
-    }
+        public bool HasUser(string username)
+        {
+            username = username.ToLower();
+            return _users.ContainsKey(username);
+        }
 
-    public void RemoveUser(ChatUser user)
-    {
-        string username = user.Nickname.ToLower();
-        if (HasUser(username) == false) return;
-        users.Remove(username);
-    }
-
-    public bool HasUser(string username)
-    {
-        username = username.ToLower();
-        return users.ContainsKey(username);
-    }
-
-    public ChatUser GetUser(string username)
-    {
-        if (!HasUser(username)) return null;
-
-        username = username.ToLower();
-        return users[username];
+        public ChatUser GetUser(string username)
+        {
+            if (!HasUser(username)) return null;
+            username = username.ToLower();
+            return _users[username];
+        }
     }
 }

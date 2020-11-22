@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Chat;
+using Data;
+using Data.Entities;
+using UnityEngine;
 
 public class GameController : MonoBehaviour, IChatAdapter
 {
