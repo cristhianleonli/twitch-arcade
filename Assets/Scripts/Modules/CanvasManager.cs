@@ -30,9 +30,6 @@ public class CanvasManager : MonoBehaviour
 {
     private List<PanelData> panels = new List<PanelData>();
 
-    // FIXME: Replace this with a panel with users
-    public Text playersText;
-
     void Start()
     {
         panels.Add(new PanelData(PanelType.GAME_LIST, FindObjectOfType<GameListPanel>().gameObject, null));
@@ -72,6 +69,6 @@ public class CanvasManager : MonoBehaviour
 
     public void SetPlayersTitle(string text)
     {
-        playersText.text = text;
+        Debug.Log(text);
     }
 }

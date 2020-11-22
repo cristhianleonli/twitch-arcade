@@ -84,7 +84,6 @@ public class ChatManager : MonoBehaviour
 
     private bool IsJoinCommand(ChatCommand command)
     {
-        // TODO: Take the command alias from Player preferences
         if (command.Command != dataManager.GetCommandPrefix()) return false;
         if (command.Parameters.Length != 1) return false;
 
@@ -93,7 +92,6 @@ public class ChatManager : MonoBehaviour
 
     private bool IsLeaveCommand(ChatCommand command)
     {
-        // TODO: Take the command alias from Player preferences
         if (command.Command != dataManager.GetCommandPrefix()) return false;
         if (command.Parameters.Length != 1) return false;
 

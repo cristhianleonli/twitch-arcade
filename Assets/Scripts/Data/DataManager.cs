@@ -3,6 +3,7 @@
 public class DataManager
 {
     private static DataManager instance;
+
     private readonly string usernameKey = "USERNAME";
     private readonly string channelKey = "CHANNEL";
     private readonly string tokenKey = "TOKEN";
@@ -43,7 +44,7 @@ public class DataManager
     public string GetCommandPrefix()
     {
         string prefix = PlayerPrefs.GetString(commandPrefixKey);
-        if (prefix == null)
+        if (string.IsNullOrEmpty(prefix))
         {
             SetUsername(defaultPrefix);
             return defaultPrefix;
