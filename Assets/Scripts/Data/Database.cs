@@ -23,15 +23,15 @@ namespace Data
                 using (var command = connection.CreateCommand())
                 {
                     const string commandText = "CREATE TABLE IF NOT EXISTS players(" +
-                                               "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                                               "nickname VARCHAR(255) NOT NULL," +
-                                               "score INT DEFAULT 0" +
-                                               ")";
+                                       "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                                       "nickname VARCHAR(255) NOT NULL UNIQUE," +
+                                       "score INT DEFAULT 0," +
+                                       "created_at TEXT" +
+                                       ")";
                     command.CommandText = commandText;
                     command.ExecuteNonQuery();
+                    connection.Close();
                 }
-
-                connection.Close();
             }
         }
 

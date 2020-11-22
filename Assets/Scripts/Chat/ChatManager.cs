@@ -32,7 +32,7 @@ namespace Chat
             var username = PreferenceService.GetUsername();
             var token = PreferenceService.GetToken();
             var channel = PreferenceService.GetChannelName();
-
+            
             if (username == null || token == null || channel == null) return;
 
             var config = new TwitchConnectConfig(username, token, channel);
@@ -53,20 +53,20 @@ namespace Chat
         private void ShowCommand(TwitchChatCommand chatCommand)
         {
             var command = new ChatCommand(chatCommand.Command, chatCommand.Parameters);
-            var user = new ChatUser(chatCommand.User.DisplayName);
+            var nickname = chatCommand.User.DisplayName;
 
             if (adapter == null) return;
 
             if (IsJoinCommand(command))
             {
-                _userManager.AddUser(user);
+                var user = _userManager.UserDidJoin(nickname);
                 adapter.OnUserJoined(user);
                 return;
             }
 
             if (IsLeaveCommand(command))
             {
-                _userManager.RemoveUser(user);
+                var user = _userManager.RemoveUser(nickname);
                 adapter.OnUserLeft(user);
                 return;
             }

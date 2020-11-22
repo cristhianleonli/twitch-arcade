@@ -29,22 +29,12 @@ public class GameController : MonoBehaviour, IChatAdapter
 
     public void OnUserJoined(ChatUser user)
     {
-        // FIXME: Replace this logic with players text or something
-        var text = "";
-        foreach (var chatUser in UserManager.Instance.OnlineUsers) {
-            text += chatUser.Nickname + "\n";
-        }
-        _canvasManager.SetPlayersTitle(text);
+        Debug.Log(user.ToString());
     }
 
     public void OnUserLeft(ChatUser user)
     {
-        // FIXME: Replace this logic with players text or something
-        var text = "";
-        foreach (var chatUser in UserManager.Instance.OnlineUsers) {
-            text += chatUser.Nickname + "\n";
-        }
-        _canvasManager.SetPlayersTitle(text);
+        Debug.Log(user.ToString());
     }
     #endregion
 }
