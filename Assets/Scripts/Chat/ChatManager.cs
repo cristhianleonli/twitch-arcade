@@ -26,12 +26,13 @@ public class ChatManager : MonoBehaviour
 
     private void Start()
     {
-        TwitchConnectConfig config = new TwitchConnectConfig(
-            dataManager.GetUsername(),
-            dataManager.GetToken(),
-            dataManager.GetChannelName()
-            );
+        string username = dataManager.GetUsername();
+        string token = dataManager.GetToken();
+        string channel = dataManager.GetChannelName();
 
+        if (username == null || token == null || channel == null) return;
+
+        TwitchConnectConfig config = new TwitchConnectConfig(username, token, channel);
         TwitchChatClient.instance.Init(
             config,
             () =>

@@ -3,6 +3,13 @@
 public class DataManager
 {
     private static DataManager instance;
+    private readonly string usernameKey = "USERNAME";
+    private readonly string channelKey = "CHANNEL";
+    private readonly string tokenKey = "TOKEN";
+    private readonly string commandPrefixKey = "COMMAND_PREFIX";
+    private readonly string defaultPrefix = "!arcade";
+
+    private readonly ICredentials credentials = new DebugCredentials();
 
     public static DataManager Instance
     {
@@ -17,39 +24,56 @@ public class DataManager
         }
     }
 
+    #region credentials
     public string GetUsername()
     {
-        // TODO: read from user prefs
-        return "";
+        return credentials.GetUsername();
     }
 
     public string GetChannelName()
     {
-        // TODO: read from user prefs
-        return "";
+        return credentials.GetChannelName();
     }
 
     public string GetToken()
     {
-        // TODO: read from user prefs
-        return "";
+        return credentials.GetToken();
     }
 
-    public void SetToken(string token)
+    public string GetCommandPrefix()
     {
-        // TODO: save to Player pref
-    }
+        string prefix = PlayerPrefs.GetString(commandPrefixKey);
+        if (prefix == null)
+        {
+            SetUsername(defaultPrefix);
+            return defaultPrefix;
+        }
 
-    public void SetChannelName(string channelName)
-    {
-        // TODO: save to Player pref
+        return prefix;
     }
 
     public void SetUsername(string username)
     {
-        // TODO: save to Player pref
+        PlayerPrefs.SetString(usernameKey, username);
     }
 
+    public void SetChannelName(string channelName)
+    {
+        PlayerPrefs.SetString(channelKey, channelName);
+    }
+
+    public void SetToken(string token)
+    {
+        PlayerPrefs.SetString(tokenKey, token);
+    }
+
+    public void SetCommandPrefix(string prefix)
+    {
+        PlayerPrefs.SetString(commandPrefixKey, prefix);
+    }
+    #endregion
+
+    #region database
     public bool UserExists(string username)
     {
         // TODO: read from DB
@@ -60,10 +84,5 @@ public class DataManager
     {
         // TODO: write to DB
     }
-
-    public string GetCommandPrefix()
-    {
-        // TODO: read from DB
-        return "!arcade";
-    }
+    #endregion
 }
