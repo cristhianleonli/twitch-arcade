@@ -13,7 +13,6 @@ namespace Chat
 
         public IChatAdapter adapter;
         private readonly UserManager _userManager = UserManager.Instance;
-        private readonly DataManager _dataManager = DataManager.Instance;
 
         private void Awake()
         {
@@ -30,9 +29,9 @@ namespace Chat
 
         private void Start()
         {
-            var username = _dataManager.GetUsername();
-            var token = _dataManager.GetToken();
-            var channel = _dataManager.GetChannelName();
+            var username = PreferenceService.GetUsername();
+            var token = PreferenceService.GetToken();
+            var channel = PreferenceService.GetChannelName();
 
             if (username == null || token == null || channel == null) return;
 
@@ -86,17 +85,17 @@ namespace Chat
         {
         }
 
-        private bool IsJoinCommand(ChatCommand command)
+        private static bool IsJoinCommand(ChatCommand command)
         {
-            if (command.Command != _dataManager.GetCommandPrefix()) return false;
+            if (command.Command != PreferenceService.GetCommandPrefix()) return false;
             if (command.Parameters.Length != 1) return false;
 
             return command.Parameters[0] == "join";
         }
 
-        private bool IsLeaveCommand(ChatCommand command)
+        private static bool IsLeaveCommand(ChatCommand command)
         {
-            if (command.Command != _dataManager.GetCommandPrefix()) return false;
+            if (command.Command != PreferenceService.GetCommandPrefix()) return false;
             if (command.Parameters.Length != 1) return false;
 
             return command.Parameters[0] == "leave";

@@ -1,50 +1,42 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Data.Entities;
+using UnityEngine;
 
 namespace Data
 {
     public class UserManager
     {
-
-        private static UserManager _instance;
         private readonly Dictionary<string, ChatUser> _users = new Dictionary<string, ChatUser>();
-        private readonly DataManager _dataManager = DataManager.Instance;
-
+        private readonly PlayerDataService _playerService = new PlayerDataService();
         public List<ChatUser> OnlineUsers => _users.Values.ToList();
+        
+        private static UserManager _instance;
         public static UserManager Instance => _instance ?? (_instance = new UserManager());
 
         public void AddUser(ChatUser user)
         {
-            var username = user.Nickname.ToLower();
-            if (HasUser(username)) return;
+            var nickname = user.Nickname.ToLower();
+            if (HasUser(nickname)) return;
 
-            if (_dataManager.UserExists(username) == false)
+            if (!_playerService.Exists(nickname))
             {
-                _dataManager.CreateUser(username);
+                _playerService.Create(nickname);
             }
-
-            _users.Add(username, user);
+            
+            _users.Add(nickname, user);
         }
 
         public void RemoveUser(ChatUser user)
         {
-            var username = user.Nickname.ToLower();
-            if (HasUser(username) == false) return;
-            _users.Remove(username);
+            var nickname = user.Nickname.ToLower();
+            if (HasUser(nickname) == false) return;
+            _users.Remove(nickname);
         }
 
-        public bool HasUser(string username)
+        private bool HasUser(string nickname)
         {
-            username = username.ToLower();
-            return _users.ContainsKey(username);
-        }
-
-        public ChatUser GetUser(string username)
-        {
-            if (!HasUser(username)) return null;
-            username = username.ToLower();
-            return _users[username];
+            return _users.ContainsKey(nickname.ToLower());
         }
     }
 }

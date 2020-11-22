@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour, IChatAdapter
 {
-
     private CanvasManager _canvasManager;
 
     private void Awake()
