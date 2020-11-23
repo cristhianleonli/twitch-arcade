@@ -5,29 +5,29 @@ using UnityEngine.UI;
 
 public class PanelButton : MonoBehaviour
 {
-
     public PanelType panelType;
 
-    private CanvasManager canvasManager;
-    private Image image;
-    private Button button;
-    private Text title;
+    private CanvasManager _canvasManager;
+    private Image _image;
+    private Button _button;
+    private Text _title;
 
     private void Start()
     {
-        image = GetComponentInChildren<Image>();
-        button = GetComponentInChildren<Button>();
-        title = GetComponentInChildren<Text>();
+        _image = GetComponentInChildren<Image>();
+        _button = GetComponentInChildren<Button>();
+        _title = GetComponentInChildren<Text>();
 
-        canvasManager = FindObjectOfType<CanvasManager>();
-        button.onClick.AddListener(OnClick);
-        title.text = PanelName();
+        _canvasManager = FindObjectOfType<CanvasManager>();
+        _button.onClick.AddListener(OnClick);
+        _title.text = PanelName();
     }
 
     private string PanelName()
     {
         switch (panelType)
         {
+            // TODO: Needs translation
             case PanelType.GameList: return "Games";
             case PanelType.Leaderboard: return "Leaderboard";
             case PanelType.Settings: return "Settings";
@@ -39,12 +39,12 @@ public class PanelButton : MonoBehaviour
 
     private void OnClick()
     {
-        canvasManager.OnButtonClicked(this);
+        Debug.Log(this.panelType);
+        _canvasManager.OnButtonClicked(this);
     }
 
     public void SetSelected(bool value)
     {
-        //image.color = value ? Color.red : Color.white;
-        title.color = value ? Color.red : Color.white;
+        _title.color = value ? Color.cyan : Color.red;
     }
 }
