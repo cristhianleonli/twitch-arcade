@@ -32,9 +32,7 @@ namespace Data
 
             if (!_playerService.Exists(nickname))
             {
-                var newUser = _playerService.Create(nickname);
-                _users.Add(nickname, newUser);
-                return newUser;
+                _playerService.Create(nickname);
             }
 
             var user = _playerService.Find(nickname);
