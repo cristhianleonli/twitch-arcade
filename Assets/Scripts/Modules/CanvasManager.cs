@@ -66,10 +66,4 @@ public class CanvasManager : MonoBehaviour
     {
         SelectPanel(button.panelType);
     }
-
-    public void SetPlayersTitle(string text)
-    {
-        // FIXME: Remove this function
-        Debug.Log(text);
-    }
 }

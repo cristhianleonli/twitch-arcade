@@ -11,17 +11,30 @@ public class PanelButton : MonoBehaviour
     private CanvasManager canvasManager;
     private Image image;
     private Button button;
-
-    private void Awake()
-    {
-        image = GetComponent<Image>();
-        button= GetComponent<Button>();
-        canvasManager = FindObjectOfType<CanvasManager>();
-    }
+    private Text title;
 
     private void Start()
     {
+        image = GetComponentInChildren<Image>();
+        button = GetComponentInChildren<Button>();
+        title = GetComponentInChildren<Text>();
+
+        canvasManager = FindObjectOfType<CanvasManager>();
         button.onClick.AddListener(OnClick);
+        title.text = PanelName();
+    }
+
+    private string PanelName()
+    {
+        switch (panelType)
+        {
+            case PanelType.GameList: return "Games";
+            case PanelType.Leaderboard: return "Leaderboard";
+            case PanelType.Settings: return "Settings";
+            case PanelType.Stats: return "Stats";
+            case PanelType.Players: return "Players";
+            default: return "";
+        }
     }
 
     private void OnClick()
@@ -31,6 +44,7 @@ public class PanelButton : MonoBehaviour
 
     public void SetSelected(bool value)
     {
-        image.color = value ? Color.red : Color.white;
+        //image.color = value ? Color.red : Color.white;
+        title.color = value ? Color.red : Color.white;
     }
 }
