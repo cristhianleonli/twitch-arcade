@@ -1,4 +1,5 @@
-﻿using Chat;
+﻿using System.Resources;
+using Chat;
 using Chat.Credentials;
 using Constants;
 using UnityEngine;
@@ -8,47 +9,48 @@ namespace Data
     public static class PreferenceService
     {
         private static readonly ICredentials Credentials = new DebugCredentials();
-        public static string GetUsername()
+
+        public static string Username
         {
-            return Credentials.GetUsername();
+            get => Credentials.GetUsername();
+            set => PlayerPrefs.SetString(Strings.UsernameKey, value);
+        }
+        
+        public static string ChannelName
+        {
+            get => Credentials.GetChannelName();
+            set => PlayerPrefs.SetString(Strings.ChannelKey, value);
         }
 
-        public static string GetChannelName()
+        public static string Token
         {
-            return Credentials.GetChannelName();
+            get => Credentials.GetToken();
+            set => PlayerPrefs.SetString(Strings.TokenKey, value);
         }
 
-        public static string GetToken()
+        public static int MusicLevel
         {
-            return Credentials.GetToken();
+            get => PlayerPrefs.GetInt(Strings.MusicLevelKey);
+            set => PlayerPrefs.SetInt(Strings.MusicLevelKey, value);
         }
-
-        public static string GetCommandPrefix()
+        
+        public static int EffectsLevel
         {
-            var prefix = PlayerPrefs.GetString(Strings.CommandPrefixKey);
-            if (!string.IsNullOrEmpty(prefix)) return prefix;
-            SetCommandPrefix(Strings.DefaultPrefix);
-            return Strings.DefaultPrefix;
+            get => PlayerPrefs.GetInt(Strings.EffectsLevelKey);
+            set => PlayerPrefs.SetInt(Strings.EffectsLevelKey, value);
         }
-
-        public static void SetUsername(string username)
+        
+        public static string CommandPrefix
         {
-            PlayerPrefs.SetString(Strings.UsernameKey, username);
-        }
-
-        public static void SetChannelName(string channelName)
-        {
-            PlayerPrefs.SetString(Strings.ChannelKey, channelName);
-        }
-
-        public static void SetToken(string token)
-        {
-            PlayerPrefs.SetString(Strings.TokenKey, token);
-        }
-
-        public static void SetCommandPrefix(string prefix)
-        {
-            PlayerPrefs.SetString(Strings.CommandPrefixKey, prefix);
+            get
+            {
+                var prefix = PlayerPrefs.GetString(Strings.CommandPrefixKey);
+                if (!string.IsNullOrEmpty(prefix)) return prefix;
+                
+                CommandPrefix = Strings.DefaultPrefix;
+                return Strings.DefaultPrefix;
+            } 
+            set => PlayerPrefs.SetString(Strings.CommandPrefixKey, value);
         }
     }
 }

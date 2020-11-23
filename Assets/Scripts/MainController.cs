@@ -1,9 +1,10 @@
-﻿using Chat;
-using Data;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Chat;
 using Data.Entities;
 using UnityEngine;
 
-public class GameController : MonoBehaviour, IChatAdapter
+public class MainController : MonoBehaviour, IChatAdapter
 {
     private CanvasManager _canvasManager;
 

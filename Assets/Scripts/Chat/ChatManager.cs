@@ -29,9 +29,9 @@ namespace Chat
 
         private void Start()
         {
-            var username = PreferenceService.GetUsername();
-            var token = PreferenceService.GetToken();
-            var channel = PreferenceService.GetChannelName();
+            var username = PreferenceService.Username;
+            var token = PreferenceService.Token;
+            var channel = PreferenceService.ChannelName;
             
             if (username == null || token == null || channel == null) return;
 
@@ -87,7 +87,7 @@ namespace Chat
 
         private static bool IsJoinCommand(ChatCommand command)
         {
-            if (command.Command != PreferenceService.GetCommandPrefix()) return false;
+            if (command.Command != PreferenceService.CommandPrefix) return false;
             if (command.Parameters.Length != 1) return false;
 
             return command.Parameters[0] == "join";
@@ -95,7 +95,7 @@ namespace Chat
 
         private static bool IsLeaveCommand(ChatCommand command)
         {
-            if (command.Command != PreferenceService.GetCommandPrefix()) return false;
+            if (command.Command != PreferenceService.CommandPrefix) return false;
             if (command.Parameters.Length != 1) return false;
 
             return command.Parameters[0] == "leave";
