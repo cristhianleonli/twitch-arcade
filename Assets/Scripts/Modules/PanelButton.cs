@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PanelButton : MonoBehaviour
@@ -31,15 +29,12 @@ public class PanelButton : MonoBehaviour
             case PanelType.GameList: return "Games";
             case PanelType.Leaderboard: return "Leaderboard";
             case PanelType.Settings: return "Settings";
-            case PanelType.Stats: return "Stats";
-            case PanelType.Players: return "Players";
             default: return "";
         }
     }
 
     private void OnClick()
     {
-        Debug.Log(this.panelType);
         _canvasManager.OnButtonClicked(this);
     }
 

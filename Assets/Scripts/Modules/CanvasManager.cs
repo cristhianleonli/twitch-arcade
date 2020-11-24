@@ -7,9 +7,7 @@ public enum PanelType
 {
     GameList,
     Leaderboard,
-    Players,
     Settings,
-    Stats
 }
 
 internal class PanelData
@@ -34,9 +32,7 @@ public class CanvasManager : MonoBehaviour
     {
         _panels.Add(new PanelData(PanelType.GameList, FindObjectOfType<GameListPanel>().gameObject, null));
         _panels.Add(new PanelData(PanelType.Leaderboard, FindObjectOfType<LeaderboardPanel>().gameObject, null));
-        _panels.Add(new PanelData(PanelType.Players, FindObjectOfType<PlayersPanel>().gameObject, null));
         _panels.Add(new PanelData(PanelType.Settings, FindObjectOfType<SettingsPanel>().gameObject, null));
-        _panels.Add(new PanelData(PanelType.Stats, FindObjectOfType<StatsPanel>().gameObject, null));
 
         foreach (var button in FindObjectsOfType<PanelButton>())
         {

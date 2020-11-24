@@ -7,7 +7,7 @@
 
         public ChatCommand(string command, string[] parameters)
         {
-            Command = command.ToLower();
+            Command = command;
             Parameters = parameters;
         }
     }

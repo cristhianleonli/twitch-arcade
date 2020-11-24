@@ -29,6 +29,16 @@ namespace Chat
 
         private void Start()
         {
+            StablishConnection();
+        }
+
+        public void Reconnect()
+        {
+            StablishConnection();
+        }
+
+        private void StablishConnection()
+        {
             var username = PreferenceService.Username;
             var token = PreferenceService.Token;
             var channel = PreferenceService.ChannelName;
