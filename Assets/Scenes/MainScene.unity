@@ -595,11 +595,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelType: 1
-  normalSprite: {fileID: 1566552715412073297, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
+  normalImage: {fileID: 1566552715412073297, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
     type: 3}
-  selectedSprite: {fileID: -2574449355943416012, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
-    type: 3}
-  hoverSprite: {fileID: -1257769187640015746, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
+  selectedImage: {fileID: -2574449355943416012, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
     type: 3}
 --- !u!1 &333519807
 GameObject:
@@ -1196,12 +1194,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726a40210266240799d3a39cf8cac9e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelType: 0
-  normalSprite: {fileID: 2527607607167286074, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
+  panelType: 4
+  normalImage: {fileID: 2527607607167286074, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
     type: 3}
-  selectedSprite: {fileID: -7707917330291737424, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
-    type: 3}
-  hoverSprite: {fileID: -1727787259211401930, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
+  selectedImage: {fileID: -7707917330291737424, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
     type: 3}
 --- !u!1 &617195966
 GameObject:
@@ -2306,11 +2302,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelType: 2
-  normalSprite: {fileID: 7001558939514288092, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
+  normalImage: {fileID: 7001558939514288092, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
     type: 3}
-  selectedSprite: {fileID: -5646349190705867672, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
-    type: 3}
-  hoverSprite: {fileID: -2534983082481615764, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
+  selectedImage: {fileID: -5646349190705867672, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
     type: 3}
 --- !u!1 &1115548322
 GameObject:
@@ -2515,7 +2509,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -134.5, y: 0.3}
+  m_AnchoredPosition: {x: -136.6, y: 0.3}
   m_SizeDelta: {x: 51.348022, y: 39.120857}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1173442068
@@ -2531,11 +2525,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelType: 0
-  normalSprite: {fileID: -9112927591779324202, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
+  normalImage: {fileID: -9112927591779324202, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
     type: 3}
-  selectedSprite: {fileID: -1962688518803993622, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
-    type: 3}
-  hoverSprite: {fileID: -3167664012565464253, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
+  selectedImage: {fileID: -1962688518803993622, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
     type: 3}
 --- !u!114 &1173442069
 MonoBehaviour:
@@ -2890,12 +2882,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726a40210266240799d3a39cf8cac9e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelType: 0
-  normalSprite: {fileID: 3692987858164446456, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
+  panelType: 3
+  normalImage: {fileID: 3692987858164446456, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
     type: 3}
-  selectedSprite: {fileID: 1867482156725876864, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
-    type: 3}
-  hoverSprite: {fileID: 5428179340570738698, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
+  selectedImage: {fileID: 1867482156725876864, guid: d4adbb352849e4b9295ec3a05ec4c2d5,
     type: 3}
 --- !u!1 &1360568296
 GameObject:

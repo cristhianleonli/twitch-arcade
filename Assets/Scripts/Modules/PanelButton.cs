@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public class PanelButton : MonoBehaviour
 {
     public PanelType panelType;
+    public Sprite normalImage;
+    public Sprite selectedImage;
 
     private CanvasManager _canvasManager;
     private Button _button;
@@ -12,9 +14,8 @@ public class PanelButton : MonoBehaviour
     private void Start()
     {
         _button = GetComponent<Button>();
-        _image = GetComponent<Image>();
         _canvasManager = FindObjectOfType<CanvasManager>();
-
+        
         _button.onClick.AddListener(OnClick);
     }
 
@@ -25,6 +26,7 @@ public class PanelButton : MonoBehaviour
 
     public void SetSelected(bool value)
     {
-        // TODO: set the correct sprite
+        if (_image == null) _image = GetComponent<Image>();
+        _image.sprite = value ? selectedImage : normalImage;
     }
 }

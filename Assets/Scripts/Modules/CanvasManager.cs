@@ -8,6 +8,8 @@ public enum PanelType
     GameList,
     Leaderboard,
     Settings,
+    Players,
+    Leave
 }
 
 internal class PanelData
@@ -36,7 +38,11 @@ public class CanvasManager : MonoBehaviour
 
         foreach (var button in FindObjectsOfType<PanelButton>())
         {
-            _panels.Find(item => item.panelType == button.panelType).button = button;
+            var panel = _panels.Find(item => item.panelType == button.panelType);
+            if (panel != null)
+            {
+                panel.button = button;
+            }
         }
 
         SelectPanel(PanelType.GameList);
