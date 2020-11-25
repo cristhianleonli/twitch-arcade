@@ -76,7 +76,7 @@ namespace Chat
 
             if (IsLeaveCommand(command))
             {
-                var user = _userManager.RemoveUser(nickname);
+                var user = _userManager.UserDidLeave(nickname);
                 adapter.OnUserLeft(user);
                 return;
             }

@@ -37,10 +37,11 @@ namespace Data
 
             var user = _playerService.Find(nickname);
             _users.Add(nickname, user);
+            AudioManager.PlaySound(SoundType.Connected);
             return user;
         }
 
-        public ChatUser RemoveUser(string nickname)
+        public ChatUser UserDidLeave(string nickname)
         {
             nickname = nickname.ToLower();
             if (!HasUser(nickname))
@@ -50,6 +51,7 @@ namespace Data
 
             var user = GetUser(nickname);
             _users.Remove(nickname);
+            AudioManager.PlaySound(SoundType.Disconnected);
             return user;
         }
     }

@@ -22,6 +22,7 @@ public class PanelButton : MonoBehaviour
     private void OnClick()
     {
         _canvasManager.OnButtonClicked(this);
+        AudioManager.PlaySound(SoundType.Click);
     }
 
     public void SetSelected(bool value)
