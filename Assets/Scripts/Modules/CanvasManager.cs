@@ -80,6 +80,12 @@ public class CanvasManager : MonoBehaviour, UserObserver
 
     public void OnButtonClicked(PanelButton button)
     {
+        if (button.panelType == PanelType.Leave)
+        {
+            Application.Quit();
+            return;
+        }
+
         SelectPanel(button.panelType);
     }
 
