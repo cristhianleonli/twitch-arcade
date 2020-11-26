@@ -1,5 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Data.Entities;
+using Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,9 +27,21 @@ internal class PanelData
     }
 }
 
-public class CanvasManager : MonoBehaviour
+public class CanvasManager : MonoBehaviour, UserObserver
 {
+
+    public Text usersText;
     private readonly List<PanelData> _panels = new List<PanelData>();
+
+    private void Awake()
+    {
+        UserManager.Instance.AddObserver(this);
+    }
+
+    private void OnDestroy()
+    {
+        UserManager.Instance.RemoveObserver(this);
+    }
 
     private void Start()
     {
@@ -46,6 +59,7 @@ public class CanvasManager : MonoBehaviour
         }
 
         SelectPanel(PanelType.GameList);
+        usersText.text = "0";
     }
 
     private void SelectPanel(PanelType targetPanel)
@@ -67,5 +81,15 @@ public class CanvasManager : MonoBehaviour
     public void OnButtonClicked(PanelButton button)
     {
         SelectPanel(button.panelType);
+    }
+
+    public void OnUserJoined(List<ChatUser> users, ChatUser user)
+    {
+        usersText.text = $"{users.Count}";
+    }
+
+    public void OnUserLeft(List<ChatUser> users, ChatUser user)
+    {
+        usersText.text = $"{users.Count}";
     }
 }

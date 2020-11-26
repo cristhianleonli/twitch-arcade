@@ -23,8 +23,11 @@ public class SettingsPanel : MonoBehaviour
     private int _musicLevel;
     private int _effectsLevel;
 
+    private AudioManager _audioManager;
+
     private void Start()
     {
+        _audioManager = FindObjectOfType<AudioManager>();
         SetupSliders();
         PrefillData();
         AddObservers();
@@ -47,7 +50,12 @@ public class SettingsPanel : MonoBehaviour
         usernameField.text = PreferenceService.Username;
         channelNameField.text = PreferenceService.ChannelName;
         commandPrefixField.text = PreferenceService.CommandPrefix;
-            
+
+        _token = PreferenceService.Token;
+        _username = PreferenceService.Username;
+        _channelName = PreferenceService.ChannelName;
+        _commandPrefix = PreferenceService.CommandPrefix;
+
         musicSlider.value = PreferenceService.MusicLevel;
         sfxSlider.value = PreferenceService.EffectsLevel;
     }
@@ -63,8 +71,9 @@ public class SettingsPanel : MonoBehaviour
             (value) =>
             {
                 _effectsLevel = (int) value;
+                _audioManager.PlayTestSound(_effectsLevel);
             });
-        
+
         tokenField.onValueChanged.AddListener(
             (value) =>
             {
@@ -105,7 +114,8 @@ public class SettingsPanel : MonoBehaviour
             PreferenceService.ChannelName = _channelName;
             ChatManager.Instance.Reconnect();
         }
-        
+
+        _audioManager.UpdateBackgroundLevel();
         PreferenceService.CommandPrefix = ParseCommandPrefix(_commandPrefix);
     }
 

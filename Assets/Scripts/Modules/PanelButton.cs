@@ -8,6 +8,7 @@ public class PanelButton : MonoBehaviour
     public Sprite selectedImage;
 
     private CanvasManager _canvasManager;
+    private AudioManager _audioManager;
     private Button _button;
     private Image _image;
 
@@ -15,14 +16,15 @@ public class PanelButton : MonoBehaviour
     {
         _button = GetComponent<Button>();
         _canvasManager = FindObjectOfType<CanvasManager>();
-        
+        _audioManager = FindObjectOfType<AudioManager>();
+
         _button.onClick.AddListener(OnClick);
     }
 
     private void OnClick()
     {
         _canvasManager.OnButtonClicked(this);
-        AudioManager.PlaySound(SoundType.Click);
+        _audioManager.PlayClick();
     }
 
     public void SetSelected(bool value)
