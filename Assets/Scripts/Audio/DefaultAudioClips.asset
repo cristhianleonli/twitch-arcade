@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936779f5f2f004638a4c01a194693e61, type: 3}
   m_Name: DefaultAudioClips
   m_EditorClassIdentifier: 
-  click: {fileID: 0}
-  userConnected: {fileID: 0}
-  userDisconnected: {fileID: 0}
+  click: {fileID: 8300000, guid: a2d2fbb3afd494b4a854b70c90b07047, type: 3}
+  userConnected: {fileID: 8300000, guid: ddd7d886216134b3f843a376c6d5d395, type: 3}
+  userDisconnected: {fileID: 8300000, guid: 6feca2f31390448fabf59d855a562784, type: 3}
+  backgroundLoop: {fileID: 8300000, guid: 876cac6b1525f4468b61400a266dd1b4, type: 3}

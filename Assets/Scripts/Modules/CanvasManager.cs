@@ -29,7 +29,6 @@ internal class PanelData
 
 public class CanvasManager : MonoBehaviour, UserObserver
 {
-
     public Text usersText;
     private readonly List<PanelData> _panels = new List<PanelData>();
 

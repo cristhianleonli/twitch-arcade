@@ -32,15 +32,9 @@ namespace Data
         }
 
         #region observers
-        public void AddObserver(UserObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void RemoveObserver(UserObserver observer)
-        {
-            _observers.Remove(observer);
-        }
+        public void AddObserver(UserObserver observer) => _observers.Add(observer);
+        
+        public void RemoveObserver(UserObserver observer) => _observers.Remove(observer);
         # endregion
 
         public ChatUser UserDidJoin(string nickname) {
