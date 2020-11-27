@@ -69,15 +69,13 @@ namespace Chat
 
             if (IsJoinCommand(command))
             {
-                var user = _userManager.UserDidJoin(nickname);
-                adapter.OnUserJoined(user);
+                _userManager.UserDidJoin(nickname);
                 return;
             }
 
             if (IsLeaveCommand(command))
             {
-                var user = _userManager.UserDidLeave(nickname);
-                adapter.OnUserLeft(user);
+                _userManager.UserDidLeave(nickname);
                 return;
             }
 

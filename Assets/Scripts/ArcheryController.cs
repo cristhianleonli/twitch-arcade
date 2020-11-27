@@ -1,43 +1,58 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using Chat;
+using Data;
 using Data.Entities;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class ArcheryController : MonoBehaviour, IChatAdapter
+struct PlayerData
 {
+    public Player player;
+    public ChatUser user;
+
+    public PlayerData(Player player, ChatUser user)
+    {
+        this.player = player;
+        this.user = user;
+    }
+}
+
+public class ArcheryController : MonoBehaviour, IChatAdapter, UserObserver
+{
+    public Player playerPrefab;
+    private readonly List<PlayerData> _players = new List<PlayerData>();
+    
     private void Awake()
     {
         ChatManager.Instance.adapter = this;
-    }
-    
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
+        UserManager.Instance.AddObserver(this);
     }
 
     public void OnCommandReceived(ChatCommand command)
     {
-        throw new System.NotImplementedException();
+        // TODO: 
     }
 
     public bool IsValidCommand(string command, string[] parameters)
     {
-        throw new System.NotImplementedException();
+        return false;
+    }
+    
+    public void OnUserJoined(List<ChatUser> users, ChatUser user)
+    {
+        var positionX = Random.Range(-8.1f, 8.1f);
+        var positionY = Random.Range(-3.5f, 3.5f);
+        var player = Instantiate(playerPrefab, new Vector3(positionX, positionY, 0), Quaternion.identity);
+        
+        var playerData = new PlayerData(player, user);
+        _players.Add(playerData);
     }
 
-    public void OnUserJoined(ChatUser user)
+    public void OnUserLeft(List<ChatUser> users, ChatUser user)
     {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnUserLeft(ChatUser user)
-    {
-        throw new System.NotImplementedException();
+        var player = _players.Find(playerData => playerData.user.Nickname == user.Nickname);
+        Destroy(player.player.gameObject);
+        _players.RemoveAll(playerData => playerData.user.Nickname == user.Nickname);
     }
 }
