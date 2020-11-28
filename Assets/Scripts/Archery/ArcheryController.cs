@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Chat;
 using Data;
 using Data.Entities;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public struct PlayerData
+public enum ArcheryState
 {
-    public string Nickname;
-    public int Score;
-    
-    public PlayerData(ChatUser user)
-    {
-        Nickname = user.Nickname;
-        Score = user.Score;
-    }
+    Lobby,
+    Gameplay,
+    Results
 }
 
 public class ArcheryController : MonoBehaviour, IChatAdapter, UserObserver
 {
-    public Player playerPrefab;
-    private readonly List<Player> _players = new List<Player>();
+    [SerializeField] private Archer archerPrefab;
+    private readonly List<Archer> _players = new List<Archer>();
+    private ArcheryState _currentState = ArcheryState.Lobby; 
     
     private void Awake()
     {
@@ -31,7 +27,7 @@ public class ArcheryController : MonoBehaviour, IChatAdapter, UserObserver
 
     public void OnCommandReceived(ChatCommand command)
     {
-        // TODO: 
+        
     }
 
     public bool IsValidCommand(string command, string[] parameters)
@@ -42,12 +38,13 @@ public class ArcheryController : MonoBehaviour, IChatAdapter, UserObserver
     public void OnUserJoined(List<ChatUser> users, ChatUser user)
     {
         var positionX = Random.Range(-8.1f, 8.1f);
-        var positionY = Random.Range(-3.5f, 3.5f);
+        var positionY = -4.5f;
         
-        var player = Instantiate(playerPrefab, new Vector3(positionX, positionY, 0), Quaternion.identity);
-        player.Init(new PlayerData(user));
+        var archer = Instantiate(archerPrefab, new Vector3(positionX, positionY, 0), Quaternion.identity);
+        archer.Init(new ArcherData(user));
+        archer.SetState(_currentState);
         
-        _players.Add(player);
+        _players.Add(archer);
     }
 
     public void OnUserLeft(List<ChatUser> users, ChatUser user)
@@ -55,5 +52,11 @@ public class ArcheryController : MonoBehaviour, IChatAdapter, UserObserver
         var playerToRemove = _players.Find(player => player.Identifier == user.Nickname);
         Destroy(playerToRemove.gameObject);
         _players.RemoveAll(player => player.Identifier == user.Nickname);
+    }
+
+    public void OnGameStart()
+    {
+        _currentState = ArcheryState.Gameplay;
+        _players.ForEach(player => player.SetState(ArcheryState.Gameplay));
     }
 }
