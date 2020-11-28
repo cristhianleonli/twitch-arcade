@@ -6,22 +6,22 @@ using Data.Entities;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-struct PlayerData
+public struct PlayerData
 {
-    public Player player;
-    public ChatUser user;
-
-    public PlayerData(Player player, ChatUser user)
+    public string Nickname;
+    public int Score;
+    
+    public PlayerData(ChatUser user)
     {
-        this.player = player;
-        this.user = user;
+        Nickname = user.Nickname;
+        Score = user.Score;
     }
 }
 
 public class ArcheryController : MonoBehaviour, IChatAdapter, UserObserver
 {
     public Player playerPrefab;
-    private readonly List<PlayerData> _players = new List<PlayerData>();
+    private readonly List<Player> _players = new List<Player>();
     
     private void Awake()
     {
@@ -43,16 +43,17 @@ public class ArcheryController : MonoBehaviour, IChatAdapter, UserObserver
     {
         var positionX = Random.Range(-8.1f, 8.1f);
         var positionY = Random.Range(-3.5f, 3.5f);
-        var player = Instantiate(playerPrefab, new Vector3(positionX, positionY, 0), Quaternion.identity);
         
-        var playerData = new PlayerData(player, user);
-        _players.Add(playerData);
+        var player = Instantiate(playerPrefab, new Vector3(positionX, positionY, 0), Quaternion.identity);
+        player.Init(new PlayerData(user));
+        
+        _players.Add(player);
     }
 
     public void OnUserLeft(List<ChatUser> users, ChatUser user)
     {
-        var player = _players.Find(playerData => playerData.user.Nickname == user.Nickname);
-        Destroy(player.player.gameObject);
-        _players.RemoveAll(playerData => playerData.user.Nickname == user.Nickname);
+        var playerToRemove = _players.Find(player => player.Identifier == user.Nickname);
+        Destroy(playerToRemove.gameObject);
+        _players.RemoveAll(player => player.Identifier == user.Nickname);
     }
 }
