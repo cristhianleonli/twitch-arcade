@@ -17,7 +17,8 @@ public class ArcheryController : MonoBehaviour, IChatAdapter, UserObserver
 {
     [SerializeField] private Archer archerPrefab;
     private readonly List<Archer> _players = new List<Archer>();
-    private ArcheryState _currentState = ArcheryState.Lobby; 
+    private ArcheryState _currentState = ArcheryState.Lobby;
+    public static string SceneName => "ArcheryScene";
     
     private void Awake()
     {

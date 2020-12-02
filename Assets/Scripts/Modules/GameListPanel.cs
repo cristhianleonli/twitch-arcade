@@ -1,18 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameListPanel : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Button archeryButton;
+
     void Start()
+    {
+        archeryButton.onClick.AddListener(OnArcheryButton);
+    }
+
+    void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnArcheryButton()
     {
-        
+        SceneManager.LoadScene(ArcheryController.SceneName, LoadSceneMode.Single);
     }
 }

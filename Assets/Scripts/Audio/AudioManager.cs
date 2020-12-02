@@ -53,12 +53,12 @@ public class AudioManager : MonoBehaviour, UserObserver
 
     public void PlayConnected()
     {
-        PlaySound(audioData.userConnected, _effectsLevel);
+        // PlaySound(audioData.userConnected, _effectsLevel);
     }
 
     public void PlayDisconnected()
     {
-        PlaySound(audioData.userDisconnected, _effectsLevel);
+        // PlaySound(audioData.userDisconnected, _effectsLevel);
     }
 
     private void PlaySound(AudioClip audioClip, float level)
