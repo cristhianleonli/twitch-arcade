@@ -13,7 +13,8 @@ public class SettingsPanel : MonoBehaviour
     public InputField channelNameField;
     public InputField usernameField;
     public InputField commandPrefixField;
-    public Button saveButton;
+    public PanelButton saveButton;
+    public PanelButton closeButton;
 
     // New data to save to player preferences
     private string _token;
@@ -24,6 +25,7 @@ public class SettingsPanel : MonoBehaviour
     private int _effectsLevel;
 
     private AudioManager _audioManager;
+    private OnClickCallback _closeCallback;
 
     private void Start()
     {
@@ -98,8 +100,9 @@ public class SettingsPanel : MonoBehaviour
                 _commandPrefix = ParseCommandPrefix(value);
                 commandPrefixField.text = _commandPrefix;
             });
-        saveButton.onClick.AddListener(OnSavePreferences);
-        saveButton.onClick.AddListener(OnCloseTapped);
+        
+        saveButton.SetAction(OnSavePreferences);
+        closeButton.SetAction(() => _closeCallback?.Invoke());
     }
     
     private void OnSavePreferences()
@@ -118,6 +121,7 @@ public class SettingsPanel : MonoBehaviour
 
         _audioManager.UpdateBackgroundLevel();
         PreferenceService.CommandPrefix = ParseCommandPrefix(_commandPrefix);
+        _closeCallback?.Invoke();
     }
 
     private string ParseCommandPrefix(string value)
@@ -132,8 +136,8 @@ public class SettingsPanel : MonoBehaviour
         return "!" + value;
     }
 
-    private void OnCloseTapped()
+    public void OnCloseTapped(OnClickCallback callback)
     {
-
+        _closeCallback = callback;
     }
 }

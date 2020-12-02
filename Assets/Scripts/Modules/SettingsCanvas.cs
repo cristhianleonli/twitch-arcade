@@ -1,21 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class SettingsCanvas : MonoBehaviour
 {
-    public PanelButton closeButton;
-
-    void Start()
+    public SettingsPanel settingsPanel;
+    private void Start()
     {
-        closeButton.SetAction(() => Hide());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        settingsPanel.OnCloseTapped(Hide);
     }
 
     public void Show()
@@ -23,7 +13,7 @@ public class SettingsCanvas : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void Hide() {
+    private void Hide() {
         gameObject.SetActive(false);
     }
 }

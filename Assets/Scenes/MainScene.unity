@@ -1639,7 +1639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d1ba6128cb94a7a8666d5255818d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeButton: {fileID: 1574551277}
+  settingsPanel: {fileID: 2104130667}
 --- !u!1 &409626907
 GameObject:
   m_ObjectHideFlags: 0
@@ -3917,13 +3917,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1012232069}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcc5903f3a1eb46008b2cf3b3e671e04, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f3a38fb637cd4bc1b5b2705d4bd679d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   usersText: {fileID: 821906947}
   settingsCanvas: {fileID: 381613195}
   archeryButton: {fileID: 1961702722}
   settingsButton: {fileID: 1014561191}
+  exitButton: {fileID: 571323811}
 --- !u!1 &1014561186
 GameObject:
   m_ObjectHideFlags: 0
@@ -5614,6 +5615,7 @@ GameObject:
   - component: {fileID: 1763206383}
   - component: {fileID: 1763206382}
   - component: {fileID: 1763206381}
+  - component: {fileID: 1763206384}
   m_Layer: 5
   m_Name: SaveButton
   m_TagString: Untagged
@@ -5721,6 +5723,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763206379}
   m_CullTransparentMesh: 0
+--- !u!114 &1763206384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763206379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 726a40210266240799d3a39cf8cac9e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1848460671
 GameObject:
   m_ObjectHideFlags: 0
@@ -6720,7 +6734,8 @@ MonoBehaviour:
   channelNameField: {fileID: 1083602250}
   usernameField: {fileID: 1930466258}
   commandPrefixField: {fileID: 826315914}
-  saveButton: {fileID: 1763206381}
+  saveButton: {fileID: 1763206384}
+  closeButton: {fileID: 1574551277}
 --- !u!114 &2104130668
 MonoBehaviour:
   m_ObjectHideFlags: 0

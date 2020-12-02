@@ -5,27 +5,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public enum PanelType
-{
-    GameList,
-    Leaderboard,
-    Settings,
-    Players,
-    Leave
-}
-
 public enum GameType
 {
     Archery
 }
 
-public class CanvasManager : MonoBehaviour, UserObserver
+public class MainCanvas : MonoBehaviour, UserObserver
 {
     public Text usersText;
     public SettingsCanvas settingsCanvas;
 
     public PanelButton archeryButton;
     public PanelButton settingsButton;
+    public PanelButton exitButton;
 
     private AudioManager _audioManager;
 
@@ -43,11 +35,12 @@ public class CanvasManager : MonoBehaviour, UserObserver
     {
         usersText.text = "0";
         _audioManager = FindObjectOfType<AudioManager>();
-
-        archeryButton.SetAction(() => OnGameSelected(GameType.Archery));
+        
         settingsButton.SetAction(OpenSettings);
-        //archeryButton.onClick.AddListener(() => OnGameSelected(GameType.Archery));
-        //settingsButton.onClick.AddListener(OpenSettings);
+        exitButton.SetAction(CloseApplication);
+        
+        // buttons
+        archeryButton.SetAction(() => OnGameSelected(GameType.Archery));
     }
 
     private void OnGameSelected(GameType gameType)
@@ -66,27 +59,11 @@ public class CanvasManager : MonoBehaviour, UserObserver
         settingsCanvas.Show();
     }
 
-    //public void OnButtonClicked(PanelButton button)
-    //{
-    //    if (button.panelType == PanelType.Leave)
-    //    {
-    //        Application.Quit();
-    //        return;
-    //    }
-
-    //    switch (button.panelType)
-    //    {
-    //        case PanelType.Leave:
-    //            Application.Quit();
-    //            break;
-    //        case PanelType.Settings:
-    //            settingsCanvas.Show();
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
-
+    private void CloseApplication()
+    {
+        Application.Quit();
+    }
+    
     public void OnUserJoined(List<ChatUser> users, ChatUser user)
     {
         usersText.text = $"{users.Count}";

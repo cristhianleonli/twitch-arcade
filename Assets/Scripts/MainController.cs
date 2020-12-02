@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MainController : MonoBehaviour, IChatAdapter
 {
-    private CanvasManager _canvasManager;
+    private MainCanvas _mainCanvas;
 
     private void Awake()
     {
@@ -15,7 +15,7 @@ public class MainController : MonoBehaviour, IChatAdapter
 
     private void Start()
     {
-        _canvasManager = FindObjectOfType<CanvasManager>();
+        _mainCanvas = FindObjectOfType<MainCanvas>();
     }
 
     #region Command adapter
