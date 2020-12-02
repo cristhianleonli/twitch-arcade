@@ -99,6 +99,7 @@ public class SettingsPanel : MonoBehaviour
                 commandPrefixField.text = _commandPrefix;
             });
         saveButton.onClick.AddListener(OnSavePreferences);
+        saveButton.onClick.AddListener(OnCloseTapped);
     }
     
     private void OnSavePreferences()
@@ -129,5 +130,10 @@ public class SettingsPanel : MonoBehaviour
         }
 
         return "!" + value;
+    }
+
+    private void OnCloseTapped()
+    {
+
     }
 }

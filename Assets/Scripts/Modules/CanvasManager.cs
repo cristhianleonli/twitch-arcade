@@ -3,6 +3,7 @@ using Data.Entities;
 using Data;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum PanelType
 {
@@ -13,24 +14,20 @@ public enum PanelType
     Leave
 }
 
-internal class PanelData
+public enum GameType
 {
-    public readonly PanelType panelType;
-    public readonly GameObject panel;
-    public PanelButton button;
-
-    public PanelData(PanelType panelType, GameObject panel, PanelButton button)
-    {
-        this.panelType = panelType;
-        this.panel = panel;
-        this.button = button;
-    }
+    Archery
 }
 
 public class CanvasManager : MonoBehaviour, UserObserver
 {
     public Text usersText;
-    private readonly List<PanelData> _panels = new List<PanelData>();
+    public SettingsCanvas settingsCanvas;
+
+    public PanelButton archeryButton;
+    public PanelButton settingsButton;
+
+    private AudioManager _audioManager;
 
     private void Awake()
     {
@@ -44,49 +41,51 @@ public class CanvasManager : MonoBehaviour, UserObserver
 
     private void Start()
     {
-        _panels.Add(new PanelData(PanelType.GameList, FindObjectOfType<GameListPanel>().gameObject, null));
-        _panels.Add(new PanelData(PanelType.Leaderboard, FindObjectOfType<LeaderboardPanel>().gameObject, null));
-        _panels.Add(new PanelData(PanelType.Settings, FindObjectOfType<SettingsPanel>().gameObject, null));
-
-        foreach (var button in FindObjectsOfType<PanelButton>())
-        {
-            var panel = _panels.Find(item => item.panelType == button.panelType);
-            if (panel != null)
-            {
-                panel.button = button;
-            }
-        }
-
-        SelectPanel(PanelType.GameList);
         usersText.text = "0";
+        _audioManager = FindObjectOfType<AudioManager>();
+
+        archeryButton.SetAction(() => OnGameSelected(GameType.Archery));
+        settingsButton.SetAction(OpenSettings);
+        //archeryButton.onClick.AddListener(() => OnGameSelected(GameType.Archery));
+        //settingsButton.onClick.AddListener(OpenSettings);
     }
 
-    private void SelectPanel(PanelType targetPanel)
+    private void OnGameSelected(GameType gameType)
     {
-        foreach (var panel in _panels)
+        _audioManager.PlayClick();
+
+        switch (gameType)
         {
-            if(panel.panelType == targetPanel)
-            {
-                panel.panel.SetActive(true);
-                panel.button.SetSelected(true);
-            } else
-            {
-                panel.panel.SetActive(false);
-                panel.button.SetSelected(false);
-            }
+            case GameType.Archery:
+                SceneManager.LoadScene(ArcheryController.SceneName, LoadSceneMode.Single);
+                break;
         }
     }
 
-    public void OnButtonClicked(PanelButton button)
-    {
-        if (button.panelType == PanelType.Leave)
-        {
-            Application.Quit();
-            return;
-        }
-
-        SelectPanel(button.panelType);
+    private void OpenSettings() {
+        settingsCanvas.Show();
     }
+
+    //public void OnButtonClicked(PanelButton button)
+    //{
+    //    if (button.panelType == PanelType.Leave)
+    //    {
+    //        Application.Quit();
+    //        return;
+    //    }
+
+    //    switch (button.panelType)
+    //    {
+    //        case PanelType.Leave:
+    //            Application.Quit();
+    //            break;
+    //        case PanelType.Settings:
+    //            settingsCanvas.Show();
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
     public void OnUserJoined(List<ChatUser> users, ChatUser user)
     {
