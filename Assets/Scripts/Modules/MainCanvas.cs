@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Data.Entities;
 using Data;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class MainCanvas : MonoBehaviour, UserObserver
 {
     public Text usersText;
     public SettingsCanvas settingsCanvas;
+    public TransitionsCanvas transitionsCanvas;
 
     public PanelButton archeryButton;
     public PanelButton settingsButton;
@@ -47,12 +49,16 @@ public class MainCanvas : MonoBehaviour, UserObserver
     {
         _audioManager.PlayClick();
 
-        switch (gameType)
-        {
-            case GameType.Archery:
-                SceneManager.LoadScene(ArcheryController.SceneName, LoadSceneMode.Single);
-                break;
-        }
+        // switch (gameType)
+        // {
+        //     case GameType.Archery:
+        //         SceneManager.LoadScene(ArcheryController.SceneName, LoadSceneMode.Single);
+        //         break;
+        // }
+        
+        transitionsCanvas.MoveIn(() =>
+                SceneManager.LoadScene(ArcheryController.SceneName, LoadSceneMode.Single)
+            );
     }
 
     private void OpenSettings() {
